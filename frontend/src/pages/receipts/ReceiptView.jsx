@@ -55,7 +55,7 @@ export const ReceiptView = () => {
             <div>
               <h1 className="text-2xl font-bold text-slate-950 tracking-tight">{settings.company_name}</h1>
               <p className="text-xs text-slate-500">{settings.tagline}</p>
-              <p className="text-xs text-slate-500">{settings.address} | {settings.email}</p>
+              <p className="text-xs text-slate-500">Lagos, Nigeria | {settings.email}</p>
             </div>
             <div className="text-right">
               <span className="text-xl font-bold uppercase tracking-wider text-teal-700">OFFICIAL RECEIPT</span>
@@ -96,7 +96,7 @@ export const ReceiptView = () => {
             </div>
             <div className="text-right">
               <p className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Authorized Signature</p>
-              <div className="mt-4 font-serif italic text-slate-700 font-bold">Joel Consult Finance Desk</div>
+              <div className="mt-4 font-serif italic text-slate-700 font-bold">oluwajuwonlo</div>
             </div>
           </div>
         </div>
