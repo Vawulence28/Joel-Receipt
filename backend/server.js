@@ -16,11 +16,10 @@ const receiptRoutes = require('./routes/receipt.routes');
 const reportRoutes = require('./routes/report.routes');
 const settingsRoutes = require('./routes/settings.routes');
 
-
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Trust proxy is required for secure cookies behind Render's load balancer
 app.set('trust proxy', 1);
 
 app.use(
@@ -47,6 +46,7 @@ app.use(
     cookie: {
       secure: process.env.NODE_ENV === 'production',
       httpOnly: true,
+      // SameSite 'none' is mandatory for cross-site mobile requests where frontend and backend are on different domains
       sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       maxAge: 24 * 60 * 60 * 1000,
     },
