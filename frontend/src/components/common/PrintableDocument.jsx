@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../assets/logo.png';
+import logo from '../../assets/logo.png';
 
 export const PrintableDocument = ({ title, docNumber, date, client, items, subtotal, discount, additional, total, notes, terms }) => {
   const formatNaira = (val) => new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(val || 0);
