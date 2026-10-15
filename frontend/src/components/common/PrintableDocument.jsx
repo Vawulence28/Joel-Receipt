@@ -1,16 +1,20 @@
 import React from 'react';
+import logo from '../assets/logo.png';
 
 export const PrintableDocument = ({ title, docNumber, date, client, items, subtotal, discount, additional, total, notes, terms }) => {
   const formatNaira = (val) => new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(val || 0);
 
   return (
     <div className="bg-white p-8 max-w-3xl mx-auto border border-slate-200 rounded-lg shadow-sm print:shadow-none print:border-none print:m-0 print:p-0">
-      {/* Header */}
+      {/* Header with Official Logo */}
       <div className="flex justify-between items-start border-b border-slate-300 pb-6">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">JOEL CONSULT</h1>
-          <p className="text-xs text-slate-500">AI Automation & Technology Consultancy</p>
-          <p className="text-xs text-slate-500">Lagos, Nigeria | info@joelconsult.com</p>
+        <div className="flex items-center space-x-3">
+          <img src={logo} alt="Joel Consult Logo" className="h-12 w-12 object-contain" />
+          <div>
+            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">JOEL CONSULT</h1>
+            <p className="text-xs text-slate-500">Innovation through Structured Intelligence</p>
+            <p className="text-xs text-slate-500">Lagos, Nigeria | joelconsult01@gmail.com</p>
+          </div>
         </div>
         <div className="text-right">
           <span className="text-xl font-bold uppercase tracking-wider text-teal-700">{title}</span>

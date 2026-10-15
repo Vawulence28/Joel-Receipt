@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LogOut, ShieldCheck, Database, Users, FileText, Receipt, LayoutDashboard, TrendingUp, Settings, Menu, X } from 'lucide-react';
+import { LogOut, ShieldCheck, Users, FileText, Receipt, LayoutDashboard, TrendingUp, Settings, Menu, X } from 'lucide-react';
+import logo from '../assets/logo.png';
 
 export const Navbar = () => {
   const { user, logout } = useAuth();
@@ -34,8 +35,9 @@ export const Navbar = () => {
           {/* Logo & Desktop Nav */}
           <div className="flex items-center space-x-6">
             <div className="flex items-center space-x-3">
-              <div className="rounded-lg bg-teal-600 p-2 text-white">
-                <Database className="h-5 w-5" />
+              {/* Official Logo Display */}
+              <div className="h-9 w-9 flex items-center justify-center bg-white/10 rounded-lg p-1 border border-slate-700 overflow-hidden">
+                <img src={logo} alt="Joel Consult Logo" className="h-full w-full object-contain" />
               </div>
               <div>
                 <span className="text-sm sm:text-base font-bold tracking-wider text-white">JOEL CONSULT</span>
