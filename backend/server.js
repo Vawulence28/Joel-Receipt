@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
 const pool = require('./config/db');
@@ -19,12 +20,12 @@ const settingsRoutes = require('./routes/settings.routes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Trust proxy is required for secure cookies behind Render's load balancer
 app.set('trust proxy', 1);
 
+// When hosting on the same domain, CORS can be simplified or restricted to your Render URL
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+    origin: process.env.FRONTEND_URL || 'https://jorec.onrender.com',
     credentials: true,
   })
 );
@@ -46,13 +47,14 @@ app.use(
     cookie: {
       secure: process.env.NODE_ENV === 'production',
       httpOnly: true,
-      // SameSite 'none' is mandatory for cross-site mobile requests where frontend and backend are on different domains
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      // Since frontend and backend share the exact same domain on Render, 'lax' works perfectly for first-party cookies!
+      sameSite: 'lax',
       maxAge: 24 * 60 * 60 * 1000,
     },
   })
 );
 
+// API Routes
 app.use('/api', healthRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/clients', clientRoutes);
@@ -63,11 +65,20 @@ app.use('/api/receipts', receiptRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api/settings', settingsRoutes);
 
+// --- SERVE REACT FRONTEND STATIC FILES IN PRODUCTION ---
+const frontendDistPath = path.join(__dirname, '../frontend/dist');
+app.use(express.static(frontendDistPath));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(frontendDistPath, 'index.html'));
+});
+// -----------------------------------------------------
+
 app.use((err, req, res, next) => {
   console.error('Unhandled Server Error:', err.stack);
   res.status(500).json({ error: 'Internal server error.' });
 });
 
 app.listen(PORT, () => {
-  console.log(`Joel Consult Finance Desk backend listening on port ${PORT}`);
+  console.log(`Joel Consult Finance Desk listening on port ${PORT}`);
 });

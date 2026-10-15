@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://jorec.onrender.com/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 async function handleResponse(response) {
   const data = await response.json();
@@ -20,9 +20,7 @@ export const api = {
   },
   async checkAuth() { return handleResponse(await fetch(`${API_BASE_URL}/auth/me`, { credentials: 'include' })); },
   async logout() { return handleResponse(await fetch(`${API_BASE_URL}/auth/logout`, { method: 'POST', credentials: 'include' })); },
-
   async getDashboard() { return handleResponse(await fetch(`${API_BASE_URL}/dashboard/summary`, { credentials: 'include' })); },
-
   async getClients(search = '') { return handleResponse(await fetch(`${API_BASE_URL}/clients?search=${encodeURIComponent(search)}`, { credentials: 'include' })); },
   async getClient(id) { return handleResponse(await fetch(`${API_BASE_URL}/clients/${id}`, { credentials: 'include' })); },
   async createClient(data) {
@@ -41,7 +39,6 @@ export const api = {
       credentials: 'include',
     }));
   },
-
   async getQuotations() { return handleResponse(await fetch(`${API_BASE_URL}/quotations`, { credentials: 'include' })); },
   async getQuotation(id) { return handleResponse(await fetch(`${API_BASE_URL}/quotations/${id}`, { credentials: 'include' })); },
   async createQuotation(data) {
@@ -63,7 +60,6 @@ export const api = {
   async shareQuotation(id) { return handleResponse(await fetch(`${API_BASE_URL}/quotations/${id}/share`, { method: 'POST', credentials: 'include' })); },
   async revokeQuotationShare(id) { return handleResponse(await fetch(`${API_BASE_URL}/quotations/${id}/revoke`, { method: 'POST', credentials: 'include' })); },
   async getPublicQuotation(token) { return handleResponse(await fetch(`${API_BASE_URL}/quotations/public/${token}`)); },
-
   async getInvoices() { return handleResponse(await fetch(`${API_BASE_URL}/invoices`, { credentials: 'include' })); },
   async getInvoice(id) { return handleResponse(await fetch(`${API_BASE_URL}/invoices/${id}`, { credentials: 'include' })); },
   async createInvoice(data) {
@@ -83,7 +79,6 @@ export const api = {
     }));
   },
   async cancelInvoice(id) { return handleResponse(await fetch(`${API_BASE_URL}/invoices/${id}/cancel`, { method: 'POST', credentials: 'include' })); },
-
   async getReceipts() { return handleResponse(await fetch(`${API_BASE_URL}/receipts`, { credentials: 'include' })); },
   async getReceipt(id) { return handleResponse(await fetch(`${API_BASE_URL}/receipts/${id}`, { credentials: 'include' })); },
   async createStandaloneReceipt(data) {
@@ -95,14 +90,10 @@ export const api = {
     }));
   },
   async cancelReceipt(id) { return handleResponse(await fetch(`${API_BASE_URL}/receipts/${id}/cancel`, { method: 'POST', credentials: 'include' })); },
-
-
   async getFinancialReport(params = {}) {
     const query = new URLSearchParams(params).toString();
     return handleResponse(await fetch(`${API_BASE_URL}/reports?${query}`, { credentials: 'include' }));
   },
-
-
   async getSettings() { return handleResponse(await fetch(`${API_BASE_URL}/settings`, { credentials: 'include' })); },
   async updateSettings(data) {
     return handleResponse(await fetch(`${API_BASE_URL}/settings`, {
