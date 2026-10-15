@@ -88,6 +88,7 @@ export const InvoiceView = () => {
           total={data.invoice.total_amount}
           notes={data.invoice.notes}
           terms={data.invoice.terms_conditions}
+          bankDetails={data.settings?.bank_details}
         />
 
         {/* Payments History */}

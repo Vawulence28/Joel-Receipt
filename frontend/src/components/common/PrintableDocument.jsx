@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '../../assets/logo.png';
 
-export const PrintableDocument = ({ title, docNumber, date, client, items, subtotal, discount, additional, total, notes, terms }) => {
+export const PrintableDocument = ({ title, docNumber, date, client, items, subtotal, discount, additional, total, notes, terms, bankDetails }) => {
   const formatNaira = (val) => new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(val || 0);
 
   return (
@@ -65,6 +65,13 @@ export const PrintableDocument = ({ title, docNumber, date, client, items, subto
             <span>Total:</span><span className="text-teal-700">{formatNaira(total)}</span>
           </div>
         </div>
+      </div>
+
+      {/* Bank Payment Details Section */}
+      <div className="mb-6 p-4 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-700 space-y-1">
+        <h4 className="font-bold text-slate-900 uppercase tracking-wide mb-2">Direct Bank Transfer Details</h4>
+        <p><span className="font-semibold">Bank / Details:</span> {bankDetails || 'Bank: OPAY | Account No: 8136452818 | Account Name: Oluwajuwonlo Emmanuel Olatoye'}</p>
+        <p className="text-slate-500 mt-1 italic">Please use your Invoice Number as the transfer reference.</p>
       </div>
 
       {/* Notes & Terms */}
