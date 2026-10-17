@@ -29,9 +29,12 @@ export const LetterEditor = () => {
   useEffect(() => {
     // Load settings and letter if editing
     api.getSettings().then(res => {
-      setSettings(res);
-      if (!isEditing && res.managing_consultant) {
-        setFormData(prev => ({ ...prev, signatory_name: res.managing_consultant }));
+      // Extract the nested settings object returned by your controller
+      const fetchedSettings = res.settings || res;
+      setSettings(fetchedSettings);
+      
+      if (!isEditing && fetchedSettings.managing_consultant) {
+        setFormData(prev => ({ ...prev, signatory_name: fetchedSettings.managing_consultant }));
       }
     }).catch(console.error);
 
@@ -49,7 +52,7 @@ export const LetterEditor = () => {
           letter_date: res.letter.letter_date?.split('T')[0],
           status: res.letter.status
         });
-        setSettings(res.settings);
+        setSettings(res.settings || res);
       }).catch(console.error);
     }
   }, [id, isEditing]);
