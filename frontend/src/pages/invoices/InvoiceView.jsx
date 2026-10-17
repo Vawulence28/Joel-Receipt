@@ -49,9 +49,14 @@ export const InvoiceView = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <Navbar />
+      {/* Hidden during print/PDF generation */}
+      <div className="print:hidden">
+        <Navbar />
+      </div>
+
       <main className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mb-6 flex justify-between items-center">
+        {/* Hidden during print/PDF generation */}
+        <div className="mb-6 flex justify-between items-center print:hidden">
           <button onClick={() => navigate('/invoices')} className="text-sm font-semibold text-teal-600 hover:underline">← Back to Invoices</button>
           <div className="flex space-x-3">
             <button onClick={() => window.print()} className="inline-flex items-center space-x-1.5 rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50">
@@ -91,8 +96,8 @@ export const InvoiceView = () => {
           terms={data.invoice.terms_conditions}
         />
 
-        {/* Payments History */}
-        <div className="mt-8 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+        {/* Payments History - Hidden during print */}
+        <div className="mt-8 bg-white p-6 rounded-xl border border-slate-200 shadow-sm print:hidden">
           <h3 className="text-base font-bold text-slate-900 mb-4">Payment History & Status</h3>
           <div className="grid grid-cols-3 gap-4 mb-6 bg-slate-50 p-4 rounded-lg">
             <div><span className="text-xs text-slate-500">Total Amount</span><p className="text-lg font-bold text-slate-900">₦{parseFloat(data.invoice.total_amount).toLocaleString()}</p></div>
@@ -124,7 +129,7 @@ export const InvoiceView = () => {
 
         {/* Payment Modal */}
         {showPaymentModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4 print:hidden">
             <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
               <h3 className="text-lg font-bold text-slate-900 mb-4">Record Payment (₦)</h3>
               {error && <p className="mb-4 text-xs text-red-600">{error}</p>}

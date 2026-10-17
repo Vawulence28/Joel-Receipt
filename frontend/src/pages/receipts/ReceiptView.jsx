@@ -33,9 +33,14 @@ export const ReceiptView = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <Navbar />
+      {/* Hidden during print/PDF generation */}
+      <div className="print:hidden">
+        <Navbar />
+      </div>
+
       <main className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mb-6 flex justify-between items-center">
+        {/* Hidden during print/PDF generation */}
+        <div className="mb-6 flex justify-between items-center print:hidden">
           <button onClick={() => navigate('/receipts')} className="text-sm font-semibold text-teal-600 hover:underline">← Back to Receipts</button>
           <div className="flex space-x-3">
             <button onClick={() => window.print()} className="inline-flex items-center space-x-1.5 rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50">
@@ -50,7 +55,7 @@ export const ReceiptView = () => {
         </div>
 
         {/* Printable Receipt Card */}
-        <div className="bg-white p-8 border border-slate-200 rounded-xl shadow-sm print:shadow-none print:border-none">
+        <div className="bg-white p-8 border border-slate-200 rounded-xl shadow-sm print:shadow-none print:border-none print:p-0">
           <div className="flex justify-between items-start border-b border-slate-200 pb-6 mb-6">
             <div>
               <h1 className="text-2xl font-bold text-slate-950 tracking-tight">{settings.company_name}</h1>
@@ -96,7 +101,7 @@ export const ReceiptView = () => {
             </div>
             <div className="text-right">
               <p className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Authorized Signature</p>
-              <div className="mt-4 font-serif italic text-slate-700 font-bold">oluwajuwonlo</div>
+              <div className="mt-4 font-serif italic text-slate-700 font-bold">Oluwajuwonlo Emmanuel</div>
             </div>
           </div>
         </div>

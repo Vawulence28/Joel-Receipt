@@ -17,14 +17,14 @@ export const PrintableLetter = ({ letter, settings }) => {
   };
 
   return (
-    <div className="bg-white p-12 max-w-3xl mx-auto border border-slate-200 rounded-xl shadow-sm print:shadow-none print:border-none print:m-0 print:p-8 font-sans text-slate-800">
+    <div className="bg-white p-12 max-w-3xl mx-auto border border-slate-200 rounded-xl shadow-sm print:shadow-none print:border-none print:m-0 print:p-0 font-sans text-slate-800">
       {/* Letterhead Header */}
       <div className="flex justify-between items-start border-b-2 border-teal-700 pb-6 mb-8">
         <div className="flex items-center space-x-4">
           <img src={logo} alt="Joel Consult Logo" className="h-14 w-14 object-contain" />
           <div>
             <h1 className="text-2xl font-black text-slate-900 tracking-tight uppercase">{settings.company_name}</h1>
-            <p className="text-xs font-semibold text-teal-700 italic">Innovation through Structured Intelligence</p>
+            <p className="text-xs font-semibold text-teal-700 italic">{settings.tagline || 'Innovation through Structured Intelligence'}</p>
             <p className="text-xs text-slate-500 mt-0.5">{settings.address || 'Lagos, Nigeria'}</p>
           </div>
         </div>
@@ -73,7 +73,7 @@ export const PrintableLetter = ({ letter, settings }) => {
       {/* Footer */}
       <div className="border-t border-slate-200 pt-4 mt-12 text-[10px] text-center text-slate-400 flex justify-between">
         <span>{settings.company_name} — All Rights Reserved</span>
-        <span>Generated via Joel Consult Front Desk</span>
+        <span>Generated via Joel Consult P.M. Desk</span>
       </div>
     </div>
   );
