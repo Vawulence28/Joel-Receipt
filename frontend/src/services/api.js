@@ -103,4 +103,36 @@ export const api = {
       credentials: 'include',
     }));
   },
+  async getLetters(search = '', status = '') {
+    return handleResponse(await fetch(`${API_BASE_URL}/letters?search=${encodeURIComponent(search)}&status=${encodeURIComponent(status)}`, { credentials: 'include' }));
+  },
+  async getLetter(id) { return handleResponse(await fetch(`${API_BASE_URL}/letters/${id}`, { credentials: 'include' })); },
+  async createLetter(data) {
+    return handleResponse(await fetch(`${API_BASE_URL}/letters`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+      credentials: 'include',
+    }));
+  },
+  async updateLetter(id, data) {
+    return handleResponse(await fetch(`${API_BASE_URL}/letters/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+      credentials: 'include',
+    }));
+  },
+  async duplicateLetter(id) {
+    return handleResponse(await fetch(`${API_BASE_URL}/letters/${id}/duplicate`, {
+      method: 'POST',
+      credentials: 'include',
+    }));
+  },
+  async deleteLetter(id) {
+    return handleResponse(await fetch(`${API_BASE_URL}/letters/${id}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    }));
+  },
 };

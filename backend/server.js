@@ -16,6 +16,8 @@ const dashboardRoutes = require('./routes/dashboard.routes');
 const receiptRoutes = require('./routes/receipt.routes');
 const reportRoutes = require('./routes/report.routes');
 const settingsRoutes = require('./routes/settings.routes');
+const letterRoutes = require('./routes/letter.routes');
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -64,6 +66,7 @@ app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/receipts', receiptRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api/settings', settingsRoutes);
+app.use('/api/letters', letterRoutes);
 
 // --- SERVE REACT FRONTEND STATIC FILES IN PRODUCTION ---
 const frontendDistPath = path.join(__dirname, '../frontend/dist');

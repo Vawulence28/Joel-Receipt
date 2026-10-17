@@ -50,6 +50,7 @@ export const Navbar = () => {
               <NavLink to="/clients" className={navClass}><Users className="h-4 w-4" /><span>Clients</span></NavLink>
               <NavLink to="/quotations" className={navClass}><FileText className="h-4 w-4" /><span>Quotations</span></NavLink>
               <NavLink to="/invoices" className={navClass}><Receipt className="h-4 w-4" /><span>Invoices</span></NavLink>
+              <NavLink to="/letters" className={navClass}><FileText className="h-4 w-4" /><span>Letters</span></NavLink>
               <NavLink to="/receipts" className={navClass}><Receipt className="h-4 w-4" /><span>Receipts</span></NavLink>
               <NavLink to="/reports" className={navClass}><TrendingUp className="h-4 w-4" /><span>Reports</span></NavLink>
               <NavLink to="/settings" className={navClass}><Settings className="h-4 w-4" /><span>Settings</span></NavLink>
@@ -93,6 +94,7 @@ export const Navbar = () => {
             <NavLink to="/clients" className={mobileNavClass}><Users className="h-5 w-5" /><span>Clients</span></NavLink>
             <NavLink to="/quotations" className={mobileNavClass}><FileText className="h-5 w-5" /><span>Quotations</span></NavLink>
             <NavLink to="/invoices" className={mobileNavClass}><Receipt className="h-5 w-5" /><span>Invoices</span></NavLink>
+            <NavLink to="/letters" className={navClass}><FileText className="h-5 w-5" /><span>Letters</span></NavLink>
             <NavLink to="/receipts" className={mobileNavClass}><Receipt className="h-5 w-5" /><span>Receipts</span></NavLink>
             <NavLink to="/reports" className={mobileNavClass}><TrendingUp className="h-5 w-5" /><span>Reports</span></NavLink>
             <NavLink to="/settings" className={mobileNavClass}><Settings className="h-5 w-5" /><span>Settings</span></NavLink>
