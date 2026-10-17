@@ -59,7 +59,7 @@ export const LettersList = () => {
           </div>
           <button
             onClick={() => navigate('/letters/new')}
-            className="inline-flex items-center space-x-2 rounded-xl bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-700 transition-colors"
+            className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 rounded-xl bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-700 transition-colors"
           >
             <Plus className="h-5 w-5" />
             <span>Write a Letter</span>
@@ -90,7 +90,7 @@ export const LettersList = () => {
           </select>
         </div>
 
-        {/* Letters Table / Grid */}
+        {/* Letters Content */}
         {loading ? (
           <div className="py-20 text-center text-slate-500">Loading business letters...</div>
         ) : letters.length === 0 ? (
@@ -106,69 +106,126 @@ export const LettersList = () => {
             </button>
           </div>
         ) : (
-          <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-            <table className="w-full text-left text-sm">
-              <thead>
-                <tr className="bg-slate-100 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase">
-                  <th className="py-3 px-4">Ref & Date</th>
-                  <th className="py-3 px-4">Recipient</th>
-                  <th className="py-3 px-4">Subject</th>
-                  <th className="py-3 px-4">Status</th>
-                  <th className="py-3 px-4 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {letters.map((l) => (
-                  <tr key={l.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="py-3.5 px-4">
-                      <span className="font-semibold text-slate-900">{l.letter_number}</span>
-                      <p className="text-xs text-slate-500">{new Date(l.letter_date).toLocaleDateString()}</p>
-                    </td>
-                    <td className="py-3.5 px-4 font-medium text-slate-800">{l.recipient_name}</td>
-                    <td className="py-3.5 px-4 text-slate-600 truncate max-w-xs">{l.subject}</td>
-                    <td className="py-3.5 px-4">
-                      <span className={`inline-block px-2.5 py-1 rounded-full text-xs font-semibold ${
-                        l.status === 'Finalized' ? 'bg-emerald-100 text-emerald-700' :
-                        l.status === 'Archived' ? 'bg-slate-200 text-slate-700' : 'bg-amber-100 text-amber-800'
-                      }`}>
-                        {l.status}
-                      </span>
-                    </td>
-                    <td className="py-3.5 px-4 text-right space-x-2">
-                      <button
-                        onClick={() => navigate(`/letters/${l.id}/view`)}
-                        title="Preview & Print"
-                        className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-600"
-                      >
-                        <Eye className="h-4 w-4" />
-                      </button>
-                      <button
-                        onClick={() => navigate(`/letters/${l.id}/edit`)}
-                        title="Edit Letter"
-                        className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-teal-600"
-                      >
-                        <Edit className="h-4 w-4" />
-                      </button>
-                      <button
-                        onClick={() => handleDuplicate(l.id)}
-                        title="Duplicate Letter"
-                        className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-blue-600"
-                      >
-                        <Copy className="h-4 w-4" />
-                      </button>
-                      <button
-                        onClick={() => handleDelete(l.id)}
-                        title="Delete Draft"
-                        className="p-1.5 rounded-lg border border-red-200 hover:bg-red-50 text-red-600"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
-                    </td>
+          <>
+            {/* Desktop Table View */}
+            <div className="hidden md:block bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+              <table className="w-full text-left text-sm">
+                <thead>
+                  <tr className="bg-slate-100 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase">
+                    <th className="py-3 px-4">Ref & Date</th>
+                    <th className="py-3 px-4">Recipient</th>
+                    <th className="py-3 px-4">Subject</th>
+                    <th className="py-3 px-4">Status</th>
+                    <th className="py-3 px-4 text-right">Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {letters.map((l) => (
+                    <tr key={l.id} className="hover:bg-slate-50 transition-colors">
+                      <td className="py-3.5 px-4">
+                        <span className="font-semibold text-slate-900">{l.letter_number}</span>
+                        <p className="text-xs text-slate-500">{new Date(l.letter_date).toLocaleDateString()}</p>
+                      </td>
+                      <td className="py-3.5 px-4 font-medium text-slate-800">{l.recipient_name}</td>
+                      <td className="py-3.5 px-4 text-slate-600 truncate max-w-xs">{l.subject}</td>
+                      <td className="py-3.5 px-4">
+                        <span className={`inline-block px-2.5 py-1 rounded-full text-xs font-semibold ${
+                          l.status === 'Finalized' ? 'bg-emerald-100 text-emerald-700' :
+                          l.status === 'Archived' ? 'bg-slate-200 text-slate-700' : 'bg-amber-100 text-amber-800'
+                        }`}>
+                          {l.status}
+                        </span>
+                      </td>
+                      <td className="py-3.5 px-4 text-right space-x-2">
+                        <button
+                          onClick={() => navigate(`/letters/${l.id}/view`)}
+                          title="Preview & Print"
+                          className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-600 inline-flex items-center"
+                        >
+                          <Eye className="h-4 w-4" />
+                        </button>
+                        <button
+                          onClick={() => navigate(`/letters/${l.id}/edit`)}
+                          title="Edit Letter"
+                          className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-teal-600 inline-flex items-center"
+                        >
+                          <Edit className="h-4 w-4" />
+                        </button>
+                        <button
+                          onClick={() => handleDuplicate(l.id)}
+                          title="Duplicate Letter"
+                          className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-blue-600 inline-flex items-center"
+                        >
+                          <Copy className="h-4 w-4" />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(l.id)}
+                          title="Delete Draft"
+                          className="p-1.5 rounded-lg border border-red-200 hover:bg-red-50 text-red-600 inline-flex items-center"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile Stacked Card View */}
+            <div className="md:hidden space-y-4">
+              {letters.map((l) => (
+                <div key={l.id} className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <span className="text-xs font-bold text-teal-700">{l.letter_number}</span>
+                      <h3 className="font-bold text-slate-900 text-base">{l.recipient_name}</h3>
+                    </div>
+                    <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${
+                      l.status === 'Finalized' ? 'bg-emerald-100 text-emerald-700' :
+                      l.status === 'Archived' ? 'bg-slate-200 text-slate-700' : 'bg-amber-100 text-amber-800'
+                    }`}>
+                      {l.status}
+                    </span>
+                  </div>
+
+                  <div className="text-xs text-slate-600 space-y-1">
+                    <p><strong className="text-slate-700">Subject:</strong> {l.subject}</p>
+                    <p><strong className="text-slate-700">Date:</strong> {new Date(l.letter_date).toLocaleDateString()}</p>
+                  </div>
+
+                  <div className="flex justify-end items-center space-x-2 pt-3 border-t border-slate-100">
+                    <button
+                      onClick={() => navigate(`/letters/${l.id}/view`)}
+                      className="flex-1 inline-flex justify-center items-center space-x-1 py-2 px-3 rounded-lg border border-slate-200 bg-slate-50 text-xs font-semibold text-slate-700"
+                    >
+                      <Eye className="h-3.5 w-3.5" /><span>View</span>
+                    </button>
+                    <button
+                      onClick={() => navigate(`/letters/${l.id}/edit`)}
+                      className="flex-1 inline-flex justify-center items-center space-x-1 py-2 px-3 rounded-lg border border-teal-200 bg-teal-50 text-xs font-semibold text-teal-700"
+                    >
+                      <Edit className="h-3.5 w-3.5" /><span>Edit</span>
+                    </button>
+                    <button
+                      onClick={() => handleDuplicate(l.id)}
+                      title="Duplicate"
+                      className="p-2 rounded-lg border border-blue-200 bg-blue-50 text-blue-600"
+                    >
+                      <Copy className="h-4 w-4" />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(l.id)}
+                      title="Delete"
+                      className="p-2 rounded-lg border border-red-200 bg-red-50 text-red-600"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </main>
     </div>
